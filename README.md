@@ -38,5 +38,13 @@ To run the manager interface:
 `screenshots, gif, or video`
 
 
+## Supervisor Interface(not completed)
+Create a new MySQL table called *departments* and includes the following columns:
+* department_id
+* department_name
+* over_head_costs(a dummy number you set for each department)
 
+
+To run the Supervisor interface:
+`cd bamazon` `npm install` `node bamazonSupervisor`
 
