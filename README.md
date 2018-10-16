@@ -14,7 +14,7 @@ The *products* table should have each of the following columns:
 * price (cost the customer will pay)
 * stock_quantity (how much of the product is availble in store)
 
-### The customer (view) allows the user to view the current inventory of the store items: item IDs, product name, department name, price, and stock. The user is then able to purchase one of the existing items by entering the item ID and the desired quantity. If the desired quantity is not available, the user is prompted with an "Insufficient quantity!" alert and the order will not go through. However, if the store *does* have enough of the product the customer will be able to purchase this item.
+##### The customer (view) allows the user to view the current inventory of the store items: item IDs, product name, department name, price, and stock. The user is then able to purchase one of the existing items by entering the item ID and the desired quantity. If the desired quantity is not available, the user is prompted with an "Insufficient quantity!" alert and the order will not go through. However, if the store *does* have enough of the product the customer will be able to purchase this item.
 
 To run the customer interface:
 `cd bamazon`
