@@ -1,0 +1,26 @@
+{
+  "name": "bamazon",
+  "version": "1.0.0",
+  "description": "## Descritpion Create an Amazon-like storefront with the MySQL skills you learned this unit. This app will take in orders from customers and deplete stock from the store's inventory. This application uses two interfaces: <b>customer</b> and <b>manager</b>",
+  "main": "bamazonCustomer.js",
+  "dependencies": {
+    "cli-table": "^0.3.1",
+    "inquirer": "^6.2.0",
+    "mysql": "^2.16.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chehlsee/bamazon.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/chehlsee/bamazon/issues"
+  },
+  "homepage": "https://github.com/chehlsee/bamazon#readme"
+}
