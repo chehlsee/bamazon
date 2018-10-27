@@ -1,5 +1,6 @@
 var mysql = require("mysql");
 var inquirer = require("inquirer");
+var products;
 
 var connection = mysql.createConnection({
   host: "localhost",
@@ -27,6 +28,7 @@ const readProducts = () => {
     function (err, productsData) {
       if (err) throw err;
       console.log(productsData);
+      products = productsData
       start();
     });
 }
@@ -45,12 +47,8 @@ function start() {
       type: "input",
       name: "product",
       message: "What is the product ID you would like to purchase? [Quit with Q]",
-      validate: function(value){
-        if(isNaN(value) == false && parseInt(value) <= res.length && parseInt(value) > 0) {
-          return true;
-        } else {
-          return false;
-        }
+      validate: function(val){
+        return !isNaN(val)
       }
     })
 // async you need to use a .then
@@ -60,18 +58,18 @@ function start() {
         process.exit();
       }
       else {
-        purchaseProduct();
+        howMany(answer.product);
       }
     });
   }
 
       // function ask how many units of the product they would like to purchase
-      function howMany() {
+      function howMany(product) {
         // prompt for how many products they would like to buy
         inquirer
           .prompt([
             {
-              name: "product",
+              name: "quantity",
               type: "input",
               message: "How many would you like to purchase?",
               //checking if it is not not a number
@@ -84,40 +82,33 @@ function start() {
             }
           ])
           .then(function(answer) {
-            // when finished prompting, insert a new item into the db with the update quantity info
-            connection.query(
-              "INSERT INTO updatedProducts SET ?",
-              {
-                item_id: answer.id,
-                product_name: answer.product,
-                department_name: answer.department,
-                price: answer.price,
-                stock_quantity: answer.quantity
-              },
-              function(err) {
-                if (err) throw err;
-                console.log("Your items were purchased successfully!")
-                // re-prompt the user for if they want to purchase another item
-                reprompt();
-              }
-            );
+            // console.log(productsData)
+            console.log(products[product-1], answer.quantity)
+            if (products[product-1].quantity >= answer.quantity) {
+              updateSQL(product, answer.quantity);
+            } else {
+              console.log("Insufficient quantity!")
+            };
+           
           });
         }
 
+        function updateSQL(product, quantity) {
         // check if there is enough stock for the product being purchased
-        if (res[howMany].stock_quantity >= item_id) {
+        
           // after the customer makes a purchase update the quantity for the products
           connection.query("UPDATE Products SET ? WHERE ?", [
-            {stock_quantity: (res[item_id].stock_quantity - howMany)},
-            {item_id: answer.id}
-          ]), function(err, result) {
+            {quantity: (products[product-1].quantity - quantity)},
+            {id: product}
+          ]), function(err, res) {
             if(err) throw err;
+            var total = products[product-1].price * quantity
             // .tofixed converts number into a string, keeping only 2 decimal points
             console.log("Success! Your total is $" + total.toFixed(2))
           } 
-        } else {
-          console.log("Insufficient quantity!")
-        };
+      
+        reprompt();
+      };
 
         // after reprompt ask if they would like to purchase another item
         function reprompt(){
@@ -131,6 +122,8 @@ function start() {
             }
             else {
               console.log("Thank you!");
+              // this quits out of node.js
+              process.exit();
             }
           })
         }
