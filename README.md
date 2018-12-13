@@ -48,3 +48,6 @@ Create a new MySQL table called *departments* and includes the following columns
 To run the Supervisor interface:
 `cd bamazon` `npm install` `node bamazonSupervisor`
 
+# Copyright
+ (C) Chehlsee 2018. All Rights Reserved.
+
